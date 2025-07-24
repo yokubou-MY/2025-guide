@@ -21,7 +21,7 @@ body {
     /* background-imageはJavaScriptで設定される */
     
     /* 初期の背景画像を設定（JavaScriptが読み込まれるまでの表示） */
-    background-image: url('../img/1tume.png'); /* ★ここを.pngに修正 */
+    background-image: url('../img/1tume.png'); 
 }
 
 .content-wrapper {
@@ -83,7 +83,7 @@ body {
     height: 32px; /* モバイル版の画像の高さ (適宜調整) */
     flex-shrink: 0;
     aspect-ratio: 136 / 43; /* 画像の縦横比 */
-    background: url('../img/dynamix-title.jpg') 50% / contain no-repeat; /* ロゴ画像のパス */
+    background: url('../img/logo.png') 50% / contain no-repeat; /* ★ここを修正: logo.png */
     margin: 0;
 }
 
@@ -167,7 +167,7 @@ body {
     height: 5px; /* バーの高さ */
     background: linear-gradient(to right, #000, #4AE8E8);
     transform: scaleX(0); /* 初期状態では幅0で隠す */
-    transform-origin: center;
+    transform-origin: center; /* 中央から広がるアニメーション */
     transition: transform 0.3s ease-out;
 }
 
@@ -233,7 +233,7 @@ body {
     margin-top: 40px; /* テキストと画像の間隔 (画像から判断) */
     margin-bottom: 400px; /* 画像の下の余白 (次のコンテンツとの間) */
     background-color: transparent; /* コンテナ自体も透明にして、page-wrapperの背景が見えるように */
-    background-image: url('../img/1tume.png'); /* ★ここを.pngに修正 */
+    background-image: url('../img/1tume.png'); /* ★ここを修正: 1tume.png */
     background-position: center;
     background-size: cover; /* 画像が要素を覆うように拡大 */
     background-repeat: no-repeat;
@@ -347,7 +347,7 @@ body.sidebar-open::before {
         height: 43px;
         flex-shrink: 0;
         aspect-ratio: 136 / 43;
-        background: url('../img/dynamix-title.jpg') 50% / cover no-repeat; /* ロゴ画像のパス */
+        background: url('../img/logo.png') 50% / cover no-repeat; /* ロゴ画像のパス */
     }
 
     .header-right .hamburger-menu {
@@ -418,4 +418,6 @@ body.sidebar-open::before {
 
     .dummy-section {
         height: 600px; /* デスクトップ版のダミーの高さ */
-        margin-
+        margin-top: 20px; /* 上のコンテンツとの間隔 */
+    }
+}

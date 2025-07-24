@@ -1,0 +1,395 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+    background: #212121; /* メインコンテンツの背景色 */
+}
+
+/* page-wrapperを背景スライドショーのコンテナにする */
+.page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    /* 以前のbackground-gradientを削除 */
+    background: linear-gradient(180deg, #000 41.83%, #4AE8E8 100%); /* ヘッダーなどの背景（一時的に残す、後で調整） */
+    
+    /* ★ここから背景スライドショーのCSS */
+    background-size: cover; /* 背景画像が要素を覆うように拡大 */
+    background-position: center; /* 背景画像を中央に配置 */
+    background-repeat: no-repeat; /* 背景画像を繰り返さない */
+    transition: background-image 1s ease-in-out; /* 画像切り替え時のフェードイン/アウト */
+    /* animation: slideshow 15s infinite; /* アニメーション定義をJavaScriptで制御するため削除 */ */
+}
+
+/* 背景画像リスト (JavaScriptで切り替えるため、CSSでは直接指定しないが、参考として) */
+/* .page-wrapper.bg-image-1 { background-image: url('../img/1tume.jpg'); } */
+/* .page-wrapper.bg-image-2 { background-image: url('../img/2tume.webp'); } */
+/* .page-wrapper.bg-image-3 { background-image: url('../img/3tume.jpg'); } */
+
+/* @keyframes slideshow { */
+/* 0%, 33.33% { background-image: url('../img/1tume.jpg'); } */
+/* 33.34%, 66.66% { background-image: url('../img/2tume.webp'); } */
+/* 66.67%, 100% { background-image: url('../img/3tume.jpg'); } */
+/* } */
+
+
+.content-wrapper {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    min-height: 100vh;
+    /* content-wrapper自体の背景は透明にして、page-wrapperの背景が見えるように */
+    background-color: transparent; 
+}
+
+/* -------------------------------------- */
+/* ヘッダー */
+/* -------------------------------------- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* モバイル版のヘッダー高さ */
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #000 41.83%, #4AE8E8 100%); /* ヘッダーの背景グラデーションはそのまま */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.header-left .logo-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-left .site-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    background: url('../img/icon.png') lightgray 50% / cover no-repeat;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* アプリタイトル (画像) のスタイル */
+.header-center .app-title-image {
+    width: 100px; /* モバイル版の画像の幅 (適宜調整) */
+    height: 32px; /* モバイル版の画像の高さ (適宜調整) */
+    flex-shrink: 0;
+    aspect-ratio: 136 / 43; /* 画像の縦横比 */
+    background: url('../img/logo.png') 50% / contain no-repeat; /* ロゴ画像のパスはlogo.pngに戻す */
+    margin: 0;
+}
+
+
+/* ハンバーガーメニューアイコンのスタイル (Font Awesomeを使用) */
+.header-right .hamburger-menu {
+    font-size: 1.8em; /* アイコンのサイズ */
+    cursor: pointer;
+    padding: 5px;
+    color: #FFF; /* デフォルトは白 */
+}
+
+/* -------------------------------------- */
+/* サイドメニュー */
+/* -------------------------------------- */
+.sidebar {
+    position: fixed;
+    top: 60px; /* ヘッダーの高さ分だけ下にずらす (モバイル版) */
+    right: -286px; /* 隠れた状態 */
+    width: 286px;
+    height: calc(100vh - 60px); /* ヘッダーの高さ分を引いたビューポートの高さ */
+    background-color: rgba(255, 255, 255, 0.95); /* 半透明の白 */
+    padding-top: 0; /* paddingをリセット */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-out;
+    z-index: 1001;
+    color: #000;
+}
+
+.sidebar.is-open {
+    right: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 20px; /* 全体のパディングは維持 */
+    margin: 0;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.sidebar ul li:last-child {
+    border-bottom: none;
+}
+
+/* サイドバーの各メニュー項目のスタイル */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 横方向の中央揃え */
+    padding: 15px 0; /* 上下のパディング */
+    text-decoration: none;
+    color: #000;
+    font-family: 'Lexend Giga', sans-serif;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
+}
+
+/* メニューテキストのスタイル */
+.sidebar ul li a .menu-text {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.sidebar ul li a:hover {
+    background-color: transparent;
+}
+
+/* 各メニュー項目のグラデーションバー */
+.sidebar ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px; /* バーの高さ */
+    background: linear-gradient(to right, #000, #4AE8E8);
+    transform: scaleX(0); /* 初期状態では幅0で隠す */
+    transform-origin: center;
+    transition: transform 0.3s ease-out;
+}
+
+.sidebar ul li a:hover::after {
+    transform: scaleX(1); /* ホバー時に幅を100%にする */
+}
+
+/* -------------------------------------- */
+/* メインコンテンツ */
+/* -------------------------------------- */
+.main-content {
+    margin-top: 60px; /* モバイル版のヘッダー高さ分下にずらす */
+    padding: 0; /* main-content自体の左右のパディングを削除 */
+    background-color: transparent; /* content-wrapperの背景が見えるように透明に */
+    box-sizing: border-box;
+    color: #eee;
+    font-family: 'Lexend Giga', sans-serif;
+    text-align: center; /* テキストを中央揃えに */
+}
+
+.main-content-text {
+    background-color: transparent; /* メインコンテンツのテキスト部分の背景も透明に */
+    padding: 15px; /* テキストと背景の間のパディング */
+    margin-bottom: 20px; /* 下の画像との間隔 */
+    border-radius: 8px; /* 角を丸める */
+    display: flex; /* Flexboxを適用 */
+    flex-direction: column; /* 縦並び */
+    justify-content: center; /* 縦方向の中央揃え */
+    align-items: center; /* 横方向の中央揃え */
+    
+    /* ★ここを調整: 上下400pxの余白を確保するための高さとパディング */
+    min-height: calc(100vh - 60px); /* モバイル版: ビューポートからヘッダー分だけ引く */
+    padding-top: 400px; /* 上部に大きな余白 */
+    padding-bottom: 400px; /* 下部に大きな余白 (画像の上部との余白) */
+    box-sizing: border-box; /* paddingを含めて高さ計算 */
+}
+
+/* ようこそDynamixの世界へ のテキストスタイル */
+.main-content-text h2 {
+    font-family: 'Lexend Giga', sans-serif;
+    font-size: 1.5em; /* モバイル版フォントサイズ */
+    color: #fff; /* 文字色 */
+    margin: 0 0 10px 0; /* 下に少しマージン */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* DynamixはC4Cat社初の音楽ゲームです などのテキストスタイル */
+.main-content-text p {
+    font-family: 'Lexend Giga', sans-serif;
+    font-size: 0.9em; /* フォントサイズ */
+    margin: 5px 0; /* 上下のマージン */
+    text-align: center; /* 中央揃え */
+    line-height: 1.4; /* 行の高さ */
+}
+
+/* main-visual-container のスタイル (今回は画像切り替えのため、この要素は透明に) */
+.main-content-text .main-visual-container { /* ★セレクタを変更 */
+    width: 100%; /* 親要素の幅いっぱいに */
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 40px; /* テキストと画像の間隔 (画像から判断) */
+    margin-bottom: 400px; /* 画像の下の余白 (次のコンテンツとの間) */
+    background-color: transparent; /* ここも透明に */
+    border-radius: 0;
+    box-sizing: border-box;
+    position: relative; /* 重ねるテキストの基準にする */
+    display: flex; /* 画像を中央配置するため */
+    justify-content: center; /* 画像を中央配置するため */
+    align-items: center; /* 画像を中央配置するため */
+    height: 400px; /* 画像が表示されていた分の高さを確保 (適宜調整) */
+}
+
+/* main-visual 自体はHTMLから削除したので、このスタイルは不要 */
+/* .main-visual { ... } */
+/* .main-visual.is-visible { ... } */
+
+
+.dummy-section {
+    height: 400px; /* スクロールを発生させるためのダミー。高さを調整 */
+    background-color: #333;
+    margin-top: 20px; /* 上のコンテンツとの間隔 */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: #bbb;
+    box-sizing: border-box;
+    font-family: 'Lexend Giga', sans-serif;
+    border-radius: 8px;
+}
+
+.dummy-section:nth-child(even) {
+    background-color: #444;
+}
+
+/* -------------------------------------- */
+/* サイドバーが開いている時のオーバーレイ */
+/* -------------------------------------- */
+body.sidebar-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+body.sidebar-open::before {
+    opacity: 1;
+}
+
+/* -------------------------------------- */
+/* デスクトップ版スタイル */
+/* -------------------------------------- */
+@media (min-width: 768px) {
+    .header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 105px; /* デスクトップ版のヘッダー高さ */
+        padding: 0 20px;
+        background: linear-gradient(180deg, #000 41.83%, #4AE8E8 100%);
+    }
+
+    .header-left .site-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    /* アプリタイトル (画像) のスタイル (デスクトップ版) */
+    .header-center .app-title-image {
+        width: 136px;
+        height: 43px;
+        flex-shrink: 0;
+        aspect-ratio: 136 / 43;
+        background: url('../img/dynamix-title.jpg') 50% / cover no-repeat; /* ロゴ画像のパス */
+    }
+
+    .header-right .hamburger-menu {
+        font-size: 2em; /* デスクトップ版のアイコンサイズ */
+        color: #FFF; /* デスクトップでもデフォルトは白 */
+    }
+
+    body.sidebar-open .header-right .hamburger-menu {
+        color: #000; /* デスクトップでも黒色 */
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 105px; /* ヘッダーの高さ分だけ下にずらす (デスクトップ版) */
+        right: -350px; /* 隠れた状態 */
+        width: 350px; /* デスktop版のサイドバー幅 */
+        height: calc(100vh - 105px); 
+        padding-top: 0; /* paddingをリセット */
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+    }
+
+    .sidebar.is-open {
+        right: 0;
+    }
+
+    .sidebar ul {
+        padding: 30px;
+    }
+
+    .sidebar ul li a {
+        font-size: 1.5em; /* デスクトップでは少し大きくする */
+        padding: 20px 0; /* 上下のパディングは残し、左右のパディングは不要 */
+    }
+
+    .main-content {
+        margin-top: 105px; /* デスクトップ版のヘッダー高さ分下にずらす */
+        padding: 0; /* main-content自体の左右のパディングを削除 */
+        background-color: transparent;
+    }
+
+    .main-content-text {
+        min-height: calc(100vh - 105px); /* デスクトップ版: ビューポートからヘッダー分だけ引く */
+        padding-top: 400px; /* 上部の余白 */
+        padding-bottom: 400px; /* 下部の余白 (画像の上部との余白) */
+        padding-left: 20px; /* 左右にも少し余白を設ける */
+        padding-right: 20px;
+    }
+    
+    .main-content-text h2 {
+        font-size: 2.5em; /* デスクトップ版フォントサイズ */
+    }
+
+    .main-content-text p {
+        font-size: 1.2em; /* デスクトップ版フォントサイズ */
+    }
+
+    .main-content-text .main-visual-container {
+        /* デスクトップ版での調整 */
+        height: auto; /* paddingで高さを確保するためautoに */
+        margin-top: 60px; /* テキストと画像の間隔 */
+        margin-bottom: 400px; /* 画像の下の余白 (次のコンテンツとの間) */
+    }
+
+    .dummy-section {
+        height: 600px; /* デスクトップ版のダミーの高さ */
+        margin-top: 20px; /* 上のコンテンツとの間隔 */
+    }
+}
